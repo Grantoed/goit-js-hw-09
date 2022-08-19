@@ -7,8 +7,12 @@ const refs = {
   stop: document.querySelector('[data-stop]'),
 };
 
+console.log(refs.start);
+
 refs.start.addEventListener('click', onStart);
 refs.stop.addEventListener('click', onStop);
+
+refs.stop.disabled = true;
 
 function onStart() {
   refs.start.disabled = true;
