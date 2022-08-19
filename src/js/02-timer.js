@@ -27,6 +27,8 @@ const options = {
     const isPastTime = selectedTime < Date.now();
 
     if (isPastTime) {
+      refs.start.disabled = true;
+
       Notify.failure('Please choose a date in the future');
     } else {
       refs.start.disabled = false;
