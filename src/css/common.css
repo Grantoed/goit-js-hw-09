@@ -41,3 +41,14 @@ img {
 .field:not(:last-child) {
   margin-right: 10px;
 }
+
+form {
+  display: flex;
+  align-items: flex-end;
+}
+
+label {
+  display: inline-flex;
+  flex-direction: column;
+  margin-right: 10px;
+}
