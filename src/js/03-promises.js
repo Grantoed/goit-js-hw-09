@@ -14,30 +14,31 @@ refs.form.addEventListener('submit', onSubmit);
 function onSubmit(evt) {
   evt.preventDefault();
 
-  const delayValue = refs.delay.value;
-  const stepValue = refs.step.value;
-  const amountValue = refs.amount.value;
+  let delayValue = Number(refs.delay.value);
+  const stepValue = Number(refs.step.value);
+  const amountValue = Number(refs.amount.value);
 
   for (let i = 1; i <= amountValue; i += 1) {
-    setTimeout(() => {
-      createPromise(i, delayValue)
-        .then(({ position, delay }) =>
-          Notify.success(`✅ Fulfilled promise ${position} in ${delay} ms`)
-        )
-        .catch(({ position, delay }) =>
-          Notify.failure(`❌ Rejected promise ${position} in ${delay} ms`)
-        );
-    }, delayValue);
+    createPromise(i, delayValue)
+      .then(({ position, delay }) => {
+        Notify.success(`✅ Fulfilled promise ${position} in ${delay} ms`);
+      })
+      .catch(({ position, delay }) => {
+        Notify.failure(`❌ Rejected promise ${position} in ${delay} ms`);
+      });
+    delayValue += stepValue;
   }
 }
 
 function createPromise(position, delay) {
   const shouldResolve = Math.random() > 0.3;
   return new Promise((resolve, reject) => {
-    if (shouldResolve) {
-      resolve({ position, delay });
-    } else {
-      reject({ position, delay });
-    }
+    setTimeout(() => {
+      if (shouldResolve) {
+        resolve({ position, delay });
+      } else {
+        reject({ position, delay });
+      }
+    }, delay);
   });
 }
